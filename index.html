@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stephen Duffy - CS541 HOME</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="queryPrinter.js"></script>
+
+    <script>
+        let homePageQuery = "SELECT title,logo,backgrounds,hwPageLink,projectLogLink FROM pageData WHERE page = 'home';";
+
+        function afterQuery(){
+
+        }
+
+        setTimeout(populateQueryNextLetter, 100, homePageQuery, afterQuery);
+    </script>
+</head>
+<body>
+    <div class = "queryBox"></div>
+    <div class = "test"></div>
+</body>
+</html>
