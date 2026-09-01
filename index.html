@@ -6,12 +6,33 @@
     <link rel="stylesheet" href="styles.css">
 
     <script src="queryPrinter.js"></script>
+    <script src="stars.js"></script>
 
     <script>
-        let homePageQuery = "SELECT title,logo,backgrounds,hwPageLink,projectLogLink FROM pageData WHERE page = 'home';";
+        let homePageQuery = "SELECT title,hwPageLink,projectLogLink,logo,backgrounds,stars FROM pageData WHERE page = 'home';";
+        let popInObjects = ["#title",".hwlink",".projectLogLink",".logo","backgrounds", "stars"];
 
         function afterQuery(){
-
+            if(popInObjects.length > 0){
+                if(popInObjects[0].startsWith(".") || popInObjects[0].startsWith("#")) {
+                    let thing = document.querySelector(popInObjects[0])
+                    thing.hidden = false;
+                } else {
+                    //do something else
+                    if(popInObjects[0] === "backgrounds"){
+                        document.querySelector("#title").style.backgroundColor = "";
+                        document.querySelector(".hwlink").style.backgroundColor = "";
+                        document.querySelector(".projectLogLink").style.backgroundColor = "";
+                    } else if(popInObjects[0] === "stars"){
+                        genStars(150)
+                    } else {
+                        console.error("unknown query element "+popInObjects[0]);
+                    }
+                }
+                popInObjects.reverse().pop()
+                popInObjects.reverse()
+                setTimeout(afterQuery, 500)
+            }
         }
 
         setTimeout(populateQueryNextLetter, 100, homePageQuery, afterQuery);
@@ -19,6 +40,25 @@
 </head>
 <body>
     <div class = "queryBox"></div>
-    <div class = "test"></div>
+    <div class = "popBox logo" hidden>
+        <img src = "datalogo.png" alt = "Stephen Duffy logo but as a database icon" class = "logo"/>
+    </div>
+    <div class = "popBox" id="title" hidden style="background-color: rgba(0, 0, 0, 0)">
+        <h1>Stephen Duffy<br>CS541 HOME PAGE</h1>
+    </div>
+
+    <div class="linkHolderOuter">
+        <div class="linkHolderInner hwlink popBox" hidden style="background-color: rgba(0, 0, 0, 0)">
+            <a href="homework.html">
+                <div class="linkContent">Homework Page</div>
+            </a>
+        </div>
+
+        <div class="linkHolderInner projectLogLink popBox" hidden style="background-color: rgba(0, 0, 0, 0)">
+            <a href="Project_log.html">
+                <div class="linkContent">Project Log</div>
+            </a>
+        </div>
+    </div>
 </body>
 </html>

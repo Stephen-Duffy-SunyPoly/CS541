@@ -12,3 +12,60 @@ body{
     border-width : 4px;
     border-style : solid;
 }
+
+@keyframes slideDownIn {
+    from{
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.popBox{
+    animation: slideDownIn .5s ease-out forwards;
+}
+
+#title{
+    height:auto;
+    background-color:#04ff0057;
+    margin-top:3px;
+    padding-bottom: 0.5%;
+    font-size: 5em;
+}
+
+img.logo{
+   aspect-ratio: auto;
+    height: 50em;
+}
+
+.linkHolderOuter{
+    display: flex;
+    justify-content: center;
+    padding: 2em;
+}
+
+.linkHolderInner{
+    padding: 1em;
+    background-color: rgba(0, 151, 168, 0.34);
+}
+
+a:link{
+    color:#00D0FF;
+    text-decoration: none;
+}
+a:visited{color:#00D0FF;}
+
+.linkContent{
+    padding: 1em;
+    font-size: 4em;
+    font-weight: bold;
+    background-color: rgba(0, 89, 255, 0.34);
+    color: white;
+}
+
+.linkContent:hover{
+    background-color: #16c5d6;
+}
