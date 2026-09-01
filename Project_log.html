@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Log</title>
+    <script src = "libraries/marked.umd.js"></script>
+    <script src = "queryPrinter.js"></script>
+    <script src = "stars.js"></script>
+    <script>
+        let logPageQuery = "SELECT title,logData,backgrounds,stars FROM pageData WHERE page = 'projectLog';"
+        let popInObjects = ["#title","#logBody","logData","backgrounds", "stars"];
+
+        function getProjectLog() {
+            fetch("Project_log.md").then((res) => {
+                if (res.ok) {
+                    res.text().then(text => {
+                        let html = document.getElementById("logBody");
+                        html.innerHTML = marked.parse(text);//lol no sanitization
+                    })
+                }
+            })
+        }
+
+        function afterQuery(){
+            if(popInObjects.length > 0){
+                if(popInObjects[0].startsWith(".") || popInObjects[0].startsWith("#")) {
+                    let thing = document.querySelector(popInObjects[0])
+                    thing.hidden = false;
+                } else {
+                    //do something else
+                    if(popInObjects[0] === "backgrounds"){
+                        document.querySelector("#title").style.backgroundColor = "";
+                        document.querySelector("#logBody").style.backgroundColor = "";
+                    } else if(popInObjects[0] === "stars"){
+                        genStars(250)
+                    } else if(popInObjects[0] === "logData"){
+                        getProjectLog();
+                    }else {
+                        console.error("unknown query element "+popInObjects[0]);
+                    }
+                }
+                popInObjects.reverse().pop()
+                popInObjects.reverse()
+                setTimeout(afterQuery, 500)
+            }
+        }
+
+        setTimeout(populateQueryNextLetter, 100, logPageQuery, afterQuery);
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            text-align: unset;
+        }
+    </style>
+</head>
+<body>
+
+<div class = "queryBox"></div>
+
+<div id="title" hidden style="background-color: rgba(0, 0, 0, 0)">
+    <h1 class="font">Stephen Duffy <br> CS541 <br> Project Log Page</h1>
+</div>
+
+<div id="logBody" hidden style="background-color: rgba(0, 0, 0, 0)">
+Loading....<br> please wait
+</div>
+</body>
+</html>

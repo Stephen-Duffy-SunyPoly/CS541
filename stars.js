@@ -10,6 +10,7 @@ function genStars(amount){
         star.style.top = Math.floor(Math.random()*100000000%pageHeight) + "px";
         star.style.left = Math.floor(Math.random()*100000000%document.body.scrollWidth) + "px";
         star.style.zIndex = -1+"";
+        star.classList.add("popBox")
         starDiv.appendChild(star);
     }
     document.body.appendChild(starDiv);

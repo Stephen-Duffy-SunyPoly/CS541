@@ -34,6 +34,9 @@ body{
     margin-top:3px;
     padding-bottom: 0.5%;
     font-size: 5em;
+    text-align: center;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
 }
 
 img.logo{
@@ -68,4 +71,12 @@ a:visited{color:#00D0FF;}
 
 .linkContent:hover{
     background-color: #16c5d6;
+}
+
+#logBody {
+    color: white;
+    font-family: sans-serif;
+    padding: 1em;
+    background-color: #00e7ff30;
+    border-radius: 1em;
 }
