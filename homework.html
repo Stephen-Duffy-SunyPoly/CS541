@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stephen Duffy - CS541 Homework</title>
+    <script src="queryPrinter.js"></script>
+    <script src="stars.js"></script>
+
+    <script>
+        let homeWorkQuery = "SELECT title,labels,assignments,backgrounds,stars FROM pageData WHERE page = 'homework';";
+        let popInObjects = ["#title",'.labelsTitle','.labelContainer','.assignmentHolder',"backgrounds", "stars"];
+
+        function afterQuery(){
+            if(popInObjects.length > 0){
+                if(popInObjects[0].startsWith(".") || popInObjects[0].startsWith("#")) {
+                    let thing = document.querySelector(popInObjects[0])
+                    thing.hidden = false;
+                } else {
+                    //do something else
+                    if(popInObjects[0] === "backgrounds"){
+                        document.querySelector("#title").style.backgroundColor = "";
+                        document.querySelector(".labels").style.backgroundColor = "";
+                        let assignments = document.querySelectorAll('.assignment');
+                        assignments.forEach(assignment => {
+                            assignment.style.backgroundColor = "";
+                        })
+
+
+                    } else if(popInObjects[0] === "stars"){
+                        genStars(350)
+                    } else {
+                        console.error("unknown query element "+popInObjects[0]);
+                    }
+                }
+                popInObjects.reverse().pop()
+                popInObjects.reverse()
+                setTimeout(afterQuery, 500)
+            }
+        }
+
+        setTimeout(populateQueryNextLetter, 100, homeWorkQuery, afterQuery);
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class = "queryBox"></div>
+    <div class = "popBox" id="title" hidden style="background-color: rgba(0, 0, 0, 0)">
+        <h1>Stephen Duffy<br>CS541<br>Homework Page</h1>
+    </div>
+    <div class="labels popBox" style="background-color: rgba(0, 0, 0, 0)">
+        <h1 class="labelsTitle popBox" hidden>Labels</h1>
+        <div class ="labelContainer popBox" hidden>
+            <a href="Project_log.html">LABEL: HW0 Project Log</a><br>
+            <a href="#HW1">LABEL: HW1_Test_Database</a><br>
+            <a href="#HW2">LABEL: HW2_Relational_Model</a><br>
+            <a href="#HW3">LABEL: HW3_Basic_SQL</a><br>
+            <a href="#HW3B">LABEL: HW3_SQLite3</a><br>
+            <a href="#HW4">LABEL: HW4_Complex_SQL_Queries</a><br>
+            <a href="#HW5">LABEL: HW5_Algebra_And_Calculus</a><br>
+            <a href="#HW6">LABEL: HW6_ER_Diagrams</a><br>
+            <a href="#HW7">LABEL: HW7_Project_Proposal</a><br>
+            <a href="#HW8">LABEL: HW8_Access_Methods_and_B_Trees</a><br>
+            <a href="#HW9">LABEL: HW9_Deductive_Databases</a><br>
+            <a href="#HW10">LABEL: HW10_Query_Processing</a><br>
+            <a href="#HW11">LABEL: HW11_Transactions</a><br>
+        </div>
+    </div>
+
+    <div class = "assignmentHolder popBox" hidden>
+        <a id = "HW1"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 1 Test Database</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW2"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 2 Relational Model</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW3"></a><a id = "HW3B"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 3 Basic SQL and SQLite3</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW4"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 4 Complex Queries</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW5"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 5 Algebra and Calculus (scary stuff)</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW6"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 6 ER Diagrams</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW7"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 7 Project Proposal</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW8"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 8 Access Methods and B trees</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW9"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 9 Deductive Databases</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW10"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 10 Query Processing</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+        <a id = "HW11"></a>
+        <div class ="assignment" style="background-color: rgba(0, 0, 0, 0)">
+            <h1>HW 11 Transactions</h1>
+            <p>Assignment Description</p>
+            Files And Links<br>
+            <a href="">Dummy Link</a><br>
+        </div>
+    </div>
+</body>
+</html>

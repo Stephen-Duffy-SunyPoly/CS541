@@ -80,3 +80,26 @@ a:visited{color:#00D0FF;}
     background-color: #00e7ff30;
     border-radius: 1em;
 }
+
+.labels{
+    background-color: rgba(190, 11, 241, 0.34);
+    margin-top:2em;
+    margin-bottom:1em;
+    padding-bottom:1%;
+    font-size: 1.5em;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+}
+.labelContainer{
+    text-align: left;
+}
+
+.assignment{
+    background-color: #00e7ff30;
+    padding: 0.5em;
+    border-radius: 3em;
+    margin: 0.4em;
+}
