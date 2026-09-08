@@ -103,3 +103,8 @@ a:visited{color:#00D0FF;}
     border-radius: 3em;
     margin: 0.4em;
 }
+
+.imgView{
+    aspect-ratio: auto;
+    width: 80vw;
+}
