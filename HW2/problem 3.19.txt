@@ -1,0 +1,14 @@
+Stephen Duffy
+CS541
+HW2_Relational_Model
+
+3.19:
+a. The phone number fields are missing the area code
+b. This information should be stored in the existing fields as it is a part of the phone number.
+c.
+    Advantages: If you only want the first name, you don't have to do any string processing. Each part can be required instead of allowing someone to just put in their first name.
+    Disadvantages: This system does not properly accommodate people who have multiple middle names. Querying the full name requires a bit more effort.
+d. If the information is allways intended to be used together then a single field would be preferable. If at any time the information may be required separately, split it into multiple fields.
+e.
+    1. A separate student phones tables that has a phone number field and a reference back to the student. With a constraint limiting each student to a max of 5 phones
+    2. Have 5 separate phone fields in the student table that allow null values.
