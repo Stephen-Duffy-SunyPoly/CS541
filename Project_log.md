@@ -15,3 +15,11 @@ Begin looking into project ideas
 - Geographic search system
 - graph database relation searching
 
+## Week 3 (9/13/2026 - 9/19/2026)
+Start to narrow down the general idea of what the project is going to be.  
+The general idea I am aiming for right now is: A useful, moderately sophisticated application with MongoDB as the backend where MongoDB's document model makes the application easier to develop.  
+Some project ideas:
+- Research note/document management system 
+- Software Development Project tracker. (Road maps, issue trackers, milestones, ect...)
+- Home management / inventory system (simulate various smart hone devices)
+- Collaborative whiteboard system 
