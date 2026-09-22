@@ -1,0 +1,8 @@
+Stephen Duffy
+CS541
+HW3_Basic_SQL
+
+a. SELECT Name FROM STUDENT WHERE Class = 4 AND Major = 'CS';
+b. SELECT Course_name FROM COURSE JOIN SECTION ON Course_name.Course_number = SECTION.Course_number WHERE Instructor = 'King' AND Year BETWEEN 07 AND 08;
+c. SELECT Course_number, Semester, Year, count(Student_number) FROM SECTION JOIN GRADE_REPORT ON SECTION.Section_identifier = GRADE_REPORT.Section_identifier WHERE Instructor = 'King';
+d. SELECT Name, Course_name, Course_number, Credit_hours, Semester, Year, Grade FROM GRADE_REPORT JOIN STUDENT ON GRADE_REPORT.Student_number = STUDENT.Student_number JOIN SECTION ON GRADE_REPORT.Section_identifier = SECTION.Section_identifier WHERE Class = 4 AND Major = 'CS';

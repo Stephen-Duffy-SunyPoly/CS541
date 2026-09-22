@@ -1,0 +1,142 @@
+Stephen Duffy
+CS541
+HW3_SQLite3
+
+SQLite version 3.31.1 2020-01-27 19:55:54
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite> .help
+.archive ...             Manage SQL archives
+.auth ON|OFF             Show authorizer callbacks
+.backup ?DB? FILE        Backup DB (default "main") to FILE
+.bail on|off             Stop after hitting an error.  Default OFF
+.binary on|off           Turn binary output on or off.  Default OFF
+.cd DIRECTORY            Change the working directory to DIRECTORY
+.changes on|off          Show number of rows changed by SQL
+.check GLOB              Fail if output since .testcase does not match
+.clone NEWDB             Clone data into NEWDB from the existing database
+.databases               List names and files of attached databases
+.dbconfig ?op? ?val?     List or change sqlite3_db_config() options
+.dbinfo ?DB?             Show status information about the database
+.dump ?TABLE? ...        Render all database content as SQL
+.echo on|off             Turn command echo on or off
+.eqp on|off|full|...     Enable or disable automatic EXPLAIN QUERY PLAN
+.excel                   Display the output of next command in spreadsheet
+.exit ?CODE?             Exit this program with return-code CODE
+.expert                  EXPERIMENTAL. Suggest indexes for queries
+.explain ?on|off|auto?   Change the EXPLAIN formatting mode.  Default: auto
+.filectrl CMD ...        Run various sqlite3_file_control() operations
+.fullschema ?--indent?   Show schema and the content of sqlite_stat tables
+.headers on|off          Turn display of headers on or off
+.help ?-all? ?PATTERN?   Show help text for PATTERN
+.import FILE TABLE       Import data from FILE into TABLE
+.imposter INDEX TABLE    Create imposter table TABLE on index INDEX
+.indexes ?TABLE?         Show names of indexes
+.limit ?LIMIT? ?VAL?     Display or change the value of an SQLITE_LIMIT
+.lint OPTIONS            Report potential schema issues.
+.load FILE ?ENTRY?       Load an extension library
+.log FILE|off            Turn logging on or off.  FILE can be stderr/stdout
+.mode MODE ?TABLE?       Set output mode
+.nullvalue STRING        Use STRING in place of NULL values
+.once (-e|-x|FILE)       Output for the next SQL command only to FILE
+.open ?OPTIONS? ?FILE?   Close existing database and reopen FILE
+.output ?FILE?           Send output to FILE or stdout if FILE is omitted
+.parameter CMD ...       Manage SQL parameter bindings
+.print STRING...         Print literal STRING
+.progress N              Invoke progress handler after every N opcodes
+.prompt MAIN CONTINUE    Replace the standard prompts
+.quit                    Exit this program
+.read FILE               Read input from FILE
+.recover                 Recover as much data as possible from corrupt db.
+.restore ?DB? FILE       Restore content of DB (default "main") from FILE
+.save FILE               Write in-memory database into FILE
+.scanstats on|off        Turn sqlite3_stmt_scanstatus() metrics on or off
+.schema ?PATTERN?        Show the CREATE statements matching PATTERN
+.selftest ?OPTIONS?      Run tests defined in the SELFTEST table
+.separator COL ?ROW?     Change the column and row separators
+.session ?NAME? CMD ...  Create or control sessions
+.sha3sum ...             Compute a SHA3 hash of database content
+.shell CMD ARGS...       Run CMD ARGS... in a system shell
+.show                    Show the current values for various settings
+.stats ?on|off?          Show stats or turn stats on or off
+.system CMD ARGS...      Run CMD ARGS... in a system shell
+.tables ?TABLE?          List names of tables matching LIKE pattern TABLE
+.testcase NAME           Begin redirecting output to 'testcase-out.txt'
+.testctrl CMD ...        Run various sqlite3_test_control() operations
+.timeout MS              Try opening locked tables for MS milliseconds
+.timer on|off            Turn SQL timer on or off
+.trace ?OPTIONS?         Output each SQL statement as it is run
+.vfsinfo ?AUX?           Information about the top-level VFS
+.vfslist                 List all available VFSes
+.vfsname ?AUX?           Print the name of the VFS stack
+.width NUM1 NUM2 ...     Set column widths for "column" mode
+
+sqlite> Update employee SET dno = null WHERE ssn = '222222200';
+sqlite> UPDATE project SET dnum = null WHERE pnumber = 2;
+Error: NOT NULL constraint failed: project.dnum
+
+sqlite> SELECT * FROM employee JOIN project ON dno = dnum;
+fnam      minit lnam     ssn        bdat        address                           sex salary         superssn    dno  pname             pnumber  plocation     dnum
+--------- ----- -------- ---------  ----------  -------------------------------   --- -------------  ----------  ---  ----------------  -------  ----------    ----
+Andy      C     Vile     222222202  1944-06-21  1967 Jordan, Milwaukee, WI        M   53000          222222200   7    InkjetPrinters    91       Phoenix       7
+Andy      C     Vile     222222202  1944-06-21  1967 Jordan, Milwaukee, WI        M   53000          222222200   7    LaserPrinters     92       LasVegas      7
+Brad      C     Knight   111111103  1968-02-13  176 Main St., Atlanta, GA         M   44000          111111100   6    DatabaseSystems   62       Birmingham    6
+Brad      C     Knight   111111103  1968-02-13  176 Main St., Atlanta, GA         M   44000          111111100   6    Middleware        63       Jackson       6
+Brad      C     Knight   111111103  1968-02-13  176 Main St., Atlanta, GA         M   44000          111111100   6    OperatingSystems  61       Jacksonville  6
+Josh      U     Zell     222222201  1954-05-22  266 McGrady, Milwaukee, WI        M   56000          222222200   7    InkjetPrinters    91       Phoenix       7
+Josh      U     Zell     222222201  1954-05-22  266 McGrady, Milwaukee, WI        M   56000          222222200   7    LaserPrinters     92       LasVegas      7
+Jared     D     James    111111100  1966-10-10  123 Peachtree, Atlanta, GA        M   85000          null        6    DatabaseSystems   62       Birmingham    6
+Jared     D     James    111111100  1966-10-10  123 Peachtree, Atlanta, GA        M   85000          null        6    Middleware        63       Jackson       6
+Jared     D     James    111111100  1966-10-10  123 Peachtree, Atlanta, GA        M   85000          null        6    OperatingSystems  61       Jacksonville  6
+Justin    n     Mark     111111102  1966-01-12  2342 May, Atlanta, GA             M   40000          111111100   6    DatabaseSystems   62       Birmingham    6
+Justin    n     Mark     111111102  1966-01-12  2342 May, Atlanta, GA             M   40000          111111100   6    Middleware        63       Jackson       6
+Justin    n     Mark     111111102  1966-01-12  2342 May, Atlanta, GA             M   40000          111111100   6    OperatingSystems  61       Jacksonville  6
+Jon       C     Jones    111111101  1967-11-14  111 Allgood, Atlanta, GA          M   45000          111111100   6    DatabaseSystems   62       Birmingham    6
+Jon       C     Jones    111111101  1967-11-14  111 Allgood, Atlanta, GA          M   45000          111111100   6    Middleware        63       Jackson       6
+Jon       C     Jones    111111101  1967-11-14  111 Allgood, Atlanta, GA          M   45000          111111100   6    OperatingSystems  61       Jacksonville  6
+John      C     James    555555500  1975-06-30  7676 Bloomington, Sacramento, CA  M   81000          null        6    DatabaseSystems   62       Birmingham    6
+John      C     James    555555500  1975-06-30  7676 Bloomington, Sacramento, CA  M   81000          null        6    Middleware        63       Jackson       6
+John      C     James    555555500  1975-06-30  7676 Bloomington, Sacramento, CA  M   81000          null        6    OperatingSystems  61       Jacksonville  6
+Alex      D     Freed    444444400  1950-10-09  4333 Pillsbury, Milwaukee, WI     M   89000          null        7    InkjetPrinters    91       Phoenix       7
+Alex      D     Freed    444444400  1950-10-09  4333 Pillsbury, Milwaukee, WI     M   89000          null        7    LaserPrinters     92       LasVegas      7
+Ahmad     V     Jabbar   987987987  1959-03-29  980 Dallas, Houston, TX           M   25000          987654321   4    Computerization   10       Stafford      4
+Ahmad     V     Jabbar   987987987  1959-03-29  980 Dallas, Houston, TX           M   25000          987654321   4    Newbenefits       30       Stafford      4
+Joyce     A     English  453453453  1962-07-31  5631 Rice, Houston, TX            F   25000          333445555   5    ProductX          1        Bellaire      5
+Joyce     A     English  453453453  1962-07-31  5631 Rice, Houston, TX            F   25000          333445555   5    ProductY          2        Sugarland     5
+Joyce     A     English  453453453  1962-07-31  5631 Rice, Houston, TX            F   25000          333445555   5    ProductZ          3        Houston       5
+Ramesh    K     Narayan  666884444  1952-09-15  971 Fire Oak, Humble, TX          M   38000          333445555   5    ProductX          1        Bellaire      5
+Ramesh    K     Narayan  666884444  1952-09-15  971 Fire Oak, Humble, TX          M   38000          333445555   5    ProductY          2        Sugarland     5
+Ramesh    K     Narayan  666884444  1952-09-15  971 Fire Oak, Humble, TX          M   38000          333445555   5    ProductZ          3        Houston       5
+Alicia    J     Zelaya   999887777  1958-07-19  3321 Castle, Spring, TX           F   25000          987654321   4    Computerization   10       Stafford      4
+Alicia    J     Zelaya   999887777  1958-07-19  3321 Castle, Spring, TX           F   25000          987654321   4    Newbenefits       30       Stafford      4
+John      B     Smith    123456789  1955-01-09  731 Fondren, Houston, TX          M   30000          333445555   5    ProductX          1        Bellaire      5
+John      B     Smith    123456789  1955-01-09  731 Fondren, Houston, TX          M   30000          333445555   5    ProductY          2        Sugarland     5
+John      B     Smith    123456789  1955-01-09  731 Fondren, Houston, TX          M   30000          333445555   5    ProductZ          3        Houston       5
+Jennifer  S     Wallace  987654321  1931-06-20  291 Berry, Bellaire, TX           F   43000          888665555   4    Computerization   10       Stafford      4
+Jennifer  S     Wallace  987654321  1931-06-20  291 Berry, Bellaire, TX           F   43000          888665555   4    Newbenefits       30       Stafford      4
+Franklin  T     Wong     333445555  1945-12-08  638 Voss, Houston, TX             M   40000          888665555   5    ProductX          1        Bellaire      5
+Franklin  T     Wong     333445555  1945-12-08  638 Voss, Houston, TX             M   40000          888665555   5    ProductY          2        Sugarland     5
+Franklin  T     Wong     333445555  1945-12-08  638 Voss, Houston, TX             M   40000          888665555   5    ProductZ          3        Houston       5
+James     E     Borg     888665555  1927-11-10  450 Stone, Houston, TX            M   55000          null        1    Reorganization    20       Houston       1
+Tom       G     Brand    222222203  1966-12-16  112 Third St, Milwaukee, WI       M   62500          222222200   7    InkjetPrinters    91       Phoenix       7
+Tom       G     Brand    222222203  1966-12-16  112 Third St, Milwaukee, WI       M   62500          222222200   7    LaserPrinters     92       LasVegas      7
+Jenny     F     Vos      222222204  1967-11-11  263 Mayberry, Milwaukee, WI       F   61000          222222201   7    InkjetPrinters    91       Phoenix       7
+Jenny     F     Vos      222222204  1967-11-11  263 Mayberry, Milwaukee, WI       F   61000          222222201   7    LaserPrinters     92       LasVegas      7
+Chris     A     Carter   222222205  1960-03-21  565 Jordan, Milwaukee, WI         F   43000          222222201   7    InkjetPrinters    91       Phoenix       7
+Chris     A     Carter   222222205  1960-03-21  565 Jordan, Milwaukee, WI         F   43000          222222201   7    LaserPrinters     92       LasVegas      7
+Kim       C     Grace    333333300  1970-10-23  6677 Mills Ave, Sacramento, CA    F   79000          null        6    DatabaseSystems   62       Birmingham    6
+Kim       C     Grace    333333300  1970-10-23  6677 Mills Ave, Sacramento, CA    F   79000          null        6    Middleware        63       Jackson       6
+Kim       C     Grace    333333300  1970-10-23  6677 Mills Ave, Sacramento, CA    F   79000          null        6    OperatingSystems  61       Jacksonville  6
+Jeff      H     Chase    333333301  1970-01-07  145 Bradbury, Sacramento, CA      M   44000          333333300   6    DatabaseSystems   62       Birmingham    6
+Jeff      H     Chase    333333301  1970-01-07  145 Bradbury, Sacramento, CA      M   44000          333333300   6    Middleware        63       Jackson       6
+Jeff      H     Chase    333333301  1970-01-07  145 Bradbury, Sacramento, CA      M   44000          333333300   6    OperatingSystems  61       Jacksonville  6
+Bonnie    S     Bays     444444401  1956-06-19  111 Hollow, Milwaukee, WI         F   70000          444444400   7    InkjetPrinters    91       Phoenix       7
+Bonnie    S     Bays     444444401  1956-06-19  111 Hollow, Milwaukee, WI         F   70000          444444400   7    LaserPrinters     92       LasVegas      7
+Alec      C     Best     444444402  1966-06-18  233 Solid, Milwaukee, WI          M   60000          444444400   7    InkjetPrinters    91       Phoenix       7
+Alec      C     Best     444444402  1966-06-18  233 Solid, Milwaukee, WI          M   60000          444444400   7    LaserPrinters     92       LasVegas      7
+Sam       S     Snedden  444444403  1977-07-31  987 Windy St, Milwaukee, WI       M   48000          444444400   7    InkjetPrinters    91       Phoenix       7
+Sam       S     Snedden  444444403  1977-07-31  987 Windy St, Milwaukee, WI       M   48000          444444400   7    LaserPrinters     92       LasVegas      7
+Nandita   K     Ball     555555501  1969-04-16  222 Howard, Sacramento, CA        M   62000          555555500   6    DatabaseSystems   62       Birmingham    6
+Nandita   K     Ball     555555501  1969-04-16  222 Howard, Sacramento, CA        M   62000          555555500   6    Middleware        63       Jackson       6
+Nandita   K     Ball     555555501  1969-04-16  222 Howard, Sacramento, CA        M   62000          555555500   6    OperatingSystems  61       Jacksonville  6
