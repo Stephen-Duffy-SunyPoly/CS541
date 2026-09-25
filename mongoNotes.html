@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mongo notes</title>
+    <script src = "libraries/marked.umd.js"></script>
+    <script>
+        function getMarkdown() {
+            fetch("mongoNotes.md").then((res) => {
+                if (res.ok) {
+                    res.text().then(text => {
+                        let html = document.getElementById("logBody");
+                        html.innerHTML = marked.parse(text);//lol no sanitization
+                    })
+                }
+            })
+        }
+
+        getMarkdown();
+    </script>
+</head>
+<body>
+<div id="logBody">
+    Loading....<br> please wait
+</div>
+</body>
+</html>
