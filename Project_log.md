@@ -23,3 +23,6 @@ Some project ideas:
 - Software Development Project tracker. (Road maps, issue trackers, milestones, ect...)
 - Home management / inventory system (simulate various smart hone devices)
 - Collaborative whiteboard system 
+
+## Week 4 (9/20/2026 - 9/26/2026)
+Started to play around with mongo DB to get a feel for what it can do and how to use it.
