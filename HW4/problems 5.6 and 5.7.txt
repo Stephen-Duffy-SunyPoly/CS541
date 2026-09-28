@@ -1,0 +1,17 @@
+Stephen Duffy
+CS541
+HW4_Complex_SQL_Queries
+
+5.6:
+a. SELECT name, Major FROM Student JOIN GRADE_REPORT ON Student.Student_number = GRADE_REPORT.Student_number
+         GROUP BY Student.Student_number, name, Major
+         HAVING count(Grade) = count(CASE WHEN Grade = 'A' THEN 1 END);
+
+b.SELECT name, Major FROM Student JOIN GRADE_REPORT ON Student.Student_number = GRADE_REPORT.Student_number
+        GROUP BY Student.Student_number, name, Major
+        HAVING count(Grade) != count(CASE WHEN Grade = 'A' THEN 1 END);
+
+5.7:
+a. SELECT fname, minit, lname FROM employee WHERE dno = (SELECT dno FROM employee WHERE salary = (SELECT max(Salary) FROM employee));
+b. SELECT e1.fname, e1.minit, e1.lname FROM employee AS e1 WHERE superssn IN (SELECT e2.ssn FROM employee AS e2 WHERE e2.superssn = '888665555');
+c. SELECT fname, minit, lname FROM employee WHERE salary >= (SELECT min(salary)+10000 FROM employee);
