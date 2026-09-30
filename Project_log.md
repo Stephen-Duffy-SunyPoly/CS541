@@ -27,3 +27,17 @@ Some project ideas:
 ## Week 4 (9/20/2026 - 9/26/2026)
 Started to play around with mongo DB to get a feel for what it can do and how to use it.  
 [notes](mongoNotes.html)
+
+## Week 5 (9/27/2026 - 10/3/2026)
+Narrow down project ideas and start to think about how the schema can be architected.
+- Software Development Project tracker
+  - Each project can contain various types of pages
+  - roadmaps that contain various item that can be marked as done or in progress
+  - Issue tracker that contains a list of problems people have as well as status like fixed, no issue, unverified, ect.
+  - General milestones listed out.
+  - an issue can automatically create a linked entry on the road map
+- Collaborative whiteboard system 
+  - Each record can represent a specific canvas
+  - each canvas contains a list of shape object
+  - shape object may include colors, styles, sizes or a list of sub shape
+  - shape can also have user attribution 
