@@ -1,0 +1,39 @@
+Stephen Duffy
+CS541
+HW5_Algebra_And_Calculus
+
+
+6.23: relational algebra
+CAR(Serial_no, Model, Manufacturer, Price)
+OPTION(Serial_no, Option_name, Price)
+SALE(Salesperson_id, Serial_no, Date, Sale_price)
+SALESPERSON(Salesperson_id, Name, Phone)
+
+a. π CAR.Serial_no, CAR.Manufacturer, SALE,Sale_price (σ SALESPERSON.Name = 'Jane Doe' (CAR ⨝ CAR.Serial_no = SALE.Serial_no (SALE ⨝ SALE.Salesperson_id = SALESPERSON.Salesperson_id SALESPERSON)))
+
+b. π CAR.Serial_no, CAR.Model (CAR - (π CAR.Serial_no, CAR.Model, CAR.Manufacturer, CAR.Price (CAR ⨝ CAR.Serial_no OPTION.Serial_no OPTION)))
+
+c. For these tables, a left outer join will list each sails person along with each sail they have completed. if a sails person has not complete any sails, then they will still be in the list once but with a null value for all the sales info.
+say we have 2 sale people Jane and John. Jane has sold 2 cars and John has sold none. If we left join SALESPERSON and SALE we would get the following:
++------+----------------+-------+-----------+------+------------+
+| Name | Salesperson_id | Phone | Serial_no | Date | Sale_price |
++------+----------------+-------+-----------+------+------------+
+| Jane | 1              | 15233 | 2         | 1/1  | $10000     |
+| Jane | 1              | 15233 | 76        | 4/1  | $75234     |
+| John | 2              | 24562 | null      | null | null       |
++------+----------------+-------+-----------+------+------------+
+
+ selection and one set operation
+d. CAR - (σ Manufacturer = 'Honda' (CAR))
+Get all the cars not made by Honda
+
+6.26 domain tuple and domain relational calculus:
+c. {b.Name | BORROWER(b) AND NOT (∃l)(BOOL_LOANS(l) AND b.Card_no = l.Card_no)}
+   {b | (∃a)(BORROWER(abcd) AND NOT (∃g)(BOOL_LOANS(efghi) AND a = g))}
+
+d. {b.Title, p.Name, P.Address | BOOK_LOANS(l) AND (∃r)(∃b)(∃p)(LIBRARY_BRANCH(r) AND BOOK(b) AND BORROWER(p) AND l.Branch_id = r.Branch_id AND r.Branch_name = 'Sharpstown' AND l.Due_date = TODAY AND l.Book_id = b.Book_id AND l.Card_no = p.Card_no)}
+   {j, m, n | (∃a)(∃b)(∃c)(∃e)BOOK_LOANS(abcde) AND (∃f)(∃g)(∃i)(∃l)(LIBRARY_BRANCH(fgh) AND BOOK(ijk) AND BORROWER(lmno) AND b = f AND g = 'Sharpstown' AND e = TODAY AND a = i AND c = l)}
+
+f. {b.Name, b.Address, c | BORROWER(b) AND (COUNT(l.Book_id |(∃l)(BOOK_LOANS(l) l.Card_no = b.card_no))(c) AND c > 5)}
+   {b, c, j | (∃a)BORROWER(abcd) AND (COUNT(e | (∃g)(BOOK_LOANS(efghi) g = a)(j) AND j > 5))}
+The book did not have anything about aggregate functions, so I did my best with what I thought it might look like

@@ -1,0 +1,43 @@
+Relational Algebra
+
+Selection, signified by a sigma. equivalent to the WHERE clause in an SQL expression
+Projection, signified by a pi. equivalent to the SELECT clause in an SQL expression. Also, eliminates duplicate results.
+
+example: π Fname, Lname, Salary(σ Dno = 5(EMPLOYEE)) is equivalent to SELECT Fname, Lname, Salary FROM EMPLOYEE WHERE Dno = 5;
+notice how the table being operated on is inside of ()
+
+Union, signified by what looks like a capital U. returns all tuples from both tables with duplicates eliminated. both tables must have the same type of tuples.
+Intersection, signified by an upside down U. returns all tuples that are in both tables (AND operation)
+Set difference (minus) signified by -, returns all tuples of the first table that do not exist in the second table. In other words, it removes all rows from the first that exist in the second.
+
+Cartesian product / cross product, signified bya cross (x). combine every row of table 1 with all rows of table 2. resulting in all possible combinations. also known as a cross join. tables do not need to be union compatible.
+Join, signified by a bow tie looking character. Combine 2 tables to gether into a larger table based on some condition. written as: TABLEA (bow tie) cognition (TABLE).
+Theta join generic name for the condition used in a join. where A theta B is: record from A <binary comparison> record from B.
+
+Equijoin, only the = comparison is used
+Natural join, signified by *. Removes second (duplicated record) attribute in an equijoin condition.
+Inner join, defined as the combination of a Cartesian product and selection
+
+any relation algebra operation can be expressed as a sequence of operations composed of selection, projection, unions, renaming, subtraction and cross products.
+
+Division, denoted by teh division symbol. Mathematical inverse of the Cartesian product. The second table must be a sub set of the first. The result will only contain COLUMNS that are not present in the second table. ROWS are only returned when the result has a match to all values in the second table.
+basically only return results that completely match the other example.
+ex: get then names of all the people who attended the first 3 meetings of CS club: table 1: the cheekiness table, table2: table containing the IDs of the first 3 club days. result: the names of everyone who checked in on each of those days
+
+Query tree, represent a longer more complex query as a binary tree where each node is a different part of the query and each leaf is a table
+
+generalize projection allow for function like aggregate functions to be included in the projection list.
+
+Outer join, like an inner join except rows are returned even if no match is found. in this case the data from the non-matching table becomes null. Symbolized by a bow ite with 2 line onm the left side of it.
+
+Relational Calculus
+a more theoretical high level blueprint for databases. basically it's closer to SQL then algebra is. but is syntax is way scarier
+
+here a tuple is a variable that ranges over an entire row.
+expression have the form of:  {t | P(t)}, meaning "find all tuples t such that the predicate P(t) is true"?.
+
+example queries:
+"list the name and address of all employees who work for the research department."
+(backwards E) existential quantifier. defines a tuple in a formula as bounded
+(Upside down A) universal qualifier. defines a tuple in a formula as free
+{t.Fname,t.Lname,t.Address | EMPLOYEE(t) AND (Ed)(DEPARTMENT(d) AND d.Dname = 'Research' AND d.Dnumber = t.Dno)}
