@@ -41,3 +41,9 @@ Narrow down project ideas and start to think about how the schema can be archite
   - each canvas contains a list of shape object
   - shape object may include colors, styles, sizes or a list of sub shape
   - shape can also have user attribution 
+
+## Week 6 (10/4/2026 - 10/10/2026)
+Decided on the project: Interactive / collaborative whiteboard
+- This project will store data in a mongo database
+- This project will be a web app where the back end will be written in JavaScript
+- The front end of this project will be developed using a combination of raw HTML and JavaScript with a canvas drawing libray to make rendering much eazyer.
