@@ -1,0 +1,50 @@
+Stephen Duffy
+CS541
+HW6_ER_Diagrams
+
+
+Extract from the ER diagram the requirements and constraints that produced this schema.
+Try to be as precise as possible in your requirements and constraints specification
+7.19:
+Requirements:
+- Airports must have a unique airport code, as well as a city and state where they are located and each airport must have a name.
+- several types of airplanes can exist, each type must have a name, a max number of seats, as well as the name of the company that makes that type.
+- Airports have a list of airplane types that are allowed to land their
+- Each airplane in existence must have an associated plane type as well as a unique airplane id and a total number of seats on the plane.
+- A Flight is composed of a unique flight number, the name of the air line providing the flight as well as whatever week days is supposed to be.
+- Each flight has associated fiars. Each fair contains a unique fair code, the amount of money it usually goes for, and any restrictions associated with he fair.
+- Flights are composed of flight legs. a leg is a non-stop portion of a flight. A leg contains a unique leg number.
+- Flight legs have Departure airports and arrival airports as well as the time they are scheduled to be arriving and departing.
+- A leg instance is a particular instance of a flight leg. Each instance has a number of available seats, as well as the date it is to take place on.
+- A leg instance has an assigned airplane.
+- A leg instance has an airport that it arrive at as well as the time it arrives there
+- A leg instance has an airport it departs from and the as well as the time it departed.
+- A leg instance contains several seat reservations.
+- Each seat has a unique seat number.
+- Each reservation contains a customer name and Cell phone number associated with the reservation.
+Constraints:
+- Each airport can land multiple plane types
+- A plane type can land at multiple airports.
+- An airplane can only be of a single type
+- Multiple airplanes can be of the same type.
+- A fair can only belong to a single flight
+- A flight can contain many fairs
+- A flight can have more than 1 leg
+- A flight leg can only belong to a single flight
+- Each flight leg can only depart from a single airport.
+- An airport can have multiple flight depart from it.
+- Each flight leg can only arrive at a single airport.
+- An airport can have multiple flight arrive at it.
+- There can be many instances of a particular flight leg.
+- Each leg instance can only be an instance of a single flight leg.
+- only 1 airplane is assigned to each leg instance.
+- An airplane can be assigned to multiple leg instances.
+- Multiple reservations can be made for a single leg instance.
+- Each seat can only have a single reservation on a leg instance.
+- A leg instance can only depart an airport once.
+- Multiple legs can depart from a single airport.
+- A leg instance can only arrive at an airport once.
+- Multiple leg instances can arrive at a single airport.
+
+
+
