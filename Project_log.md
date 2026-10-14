@@ -47,3 +47,8 @@ Decided on the project: Interactive / collaborative whiteboard
 - This project will store data in a mongo database
 - This project will be a web app where the back end will be written in JavaScript
 - The front end of this project will be developed using a combination of raw HTML and JavaScript with a canvas drawing libray to make rendering much eazyer.
+
+## Week 7 (10/11/2026 - 10/17/2026)
+Start to nail down the component that are to be used in this project:
+- Backend: Express.js
+- Frontend: fabric js for canvas drawing. This library seems to have a lot of built-in user shape manipulation tools, this should make it much easier to implement the whiteboard mechanisms.
