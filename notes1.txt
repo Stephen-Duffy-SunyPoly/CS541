@@ -20,7 +20,7 @@ Inner join, defined as the combination of a Cartesian product and selection
 
 any relation algebra operation can be expressed as a sequence of operations composed of selection, projection, unions, renaming, subtraction and cross products.
 
-Division, denoted by teh division symbol. Mathematical inverse of the Cartesian product. The second table must be a sub set of the first. The result will only contain COLUMNS that are not present in the second table. ROWS are only returned when the result has a match to all values in the second table.
+Division, denoted by the division symbol. Mathematical inverse of the Cartesian product. The second table must be a sub set of the first. The result will only contain COLUMNS that are not present in the second table. ROWS are only returned when the result has a match to all values in the second table.
 basically only return results that completely match the other example.
 ex: get then names of all the people who attended the first 3 meetings of CS club: table 1: the cheekiness table, table2: table containing the IDs of the first 3 club days. result: the names of everyone who checked in on each of those days
 

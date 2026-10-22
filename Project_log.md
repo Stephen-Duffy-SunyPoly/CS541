@@ -2,7 +2,10 @@
 ### By: Stephen Duffy
 
 # Project Proposal
-Come back Later
+- This project will create a collaborative whiteboard program
+- The data for what is on the whiteboard will be stored inside a mongo database
+- The application will be implemented as a web app with the backed written in JavaScript
+- The project can be found at the following repository: [link](https://github.com/Stephen-Duffy-SunyPoly/CS541_project)
 
 ---
 
@@ -52,3 +55,7 @@ Decided on the project: Interactive / collaborative whiteboard
 Start to nail down the component that are to be used in this project:
 - Backend: Express.js
 - Frontend: fabric js for canvas drawing. This library seems to have a lot of built-in user shape manipulation tools, this should make it much easier to implement the whiteboard mechanisms.
+
+## Week 8 (10/18/2026 - 10/24/2026)
+Create proposal  
+Make the basic webserver that connects to the database
