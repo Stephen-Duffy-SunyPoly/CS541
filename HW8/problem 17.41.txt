@@ -1,0 +1,195 @@
+Stephen Duffy
+CS541
+HW8_Access_Methods_and_B_Trees
+
+Problem 17.41 (a, b, and c only)
+Write program code to access individual fields of records under each of the following circumstances.
+For each case, state the assumptions you make concerning pointers, separator characters, and so on.
+Determine the type of information needed in the file header in order for your code to be general in each case.
+a. Fixed-length records with unspanned blocking
+b. Fixed-length records with spanned blocking
+c. Variable-length records with variable-length fields and spanned blocking
+
+code, assumptions(pointers, sperator,...), header info
+
+a.
+struct FieldInfo{
+    int offset;
+    int length
+}
+struct FileHeader{
+    char * block;
+    int recordLength;
+    FieldInfo * fields;
+}
+
+void readField(FileHeader * file, int recordNo, int fieldNo, char * dataOut){
+    FieldInfo field = file->fields[fieldNo];
+    //get the offset of the field
+    int offset = field.offset + recordNo * file->recordLength;
+    //copy the data to the user buffer
+    memcpy(dataOut, file -> block + offset, file->recordLength);
+}
+Assumptions:
+The passed in file header is valid
+The passed in pointer for the output data is provisioned to be at leased the correct size.
+The record and field numbers being asked for are not out of range
+The pointer to the block points directly to readable data
+There is no separator char as one is not necessary
+The file starts at the beginning of the provided block
+
+Header info:
+a pointer to the on disk block data.
+the length of records it contains.
+a list of the field offset and lengths.
+Block size.
+Blocking info.
+
+
+b.
+struct FieldInfo{
+    int offset;
+    int length
+}
+struct BlockInfo{
+    char * blockData;
+    BlockInfo * nextBlock;
+}
+struct FileHeader{
+    BlockInfo * startingBlock;
+    int recordLength;
+    int blockSize;
+    FieldInfo * fields;
+}
+
+void readField(FileHeader * file, int recordNo, int fieldNo, char * dataOut){
+    FieldInfo field = file->fields[fieldNo];
+    //get the offset
+    int offset = field.offset + recordNo * file->recordLength;
+    BlockInfo * startingBlock = file -> startingBlock;
+    //find the block we start in
+    int fieldStartBlockIndex = offset / file -> blockSize;
+    for(int i = 0;i<fieldStartBlockIndex;i++){
+        startingBlock = startingBlock->nextBlock;
+    }
+
+    //read as much as we can for that block (or all)
+    int leftToRead = file->recordLength;
+    int inBlockOffset = offset % file -> blockSize;
+    int outputOffset = 0;
+    while(leftToRead != 0){
+        int reading = file->recordLength;
+        if(leftToRead < reading){
+            reading = leftToRead;
+        }
+        if(inBlockOffset + reading > file -> blockSize){
+            reading = file -> blockSize - inBlockOffset;
+        }
+
+        memcpy(dataOut + outputOffset, startingBlock -> blockData + inBlockOffset, reading);
+        //read from the next block as necessary until the entire field has been read
+        inBlockOffset = 0;
+        leftToRead -= reading;
+        outputOffset += reading;
+        startingBlock = startingBlock->nextBlock;
+    }
+}
+
+Assumptions:
+The passed in file header is valid
+The passed in pointer for the output data is provisioned to be at leased the correct size.
+The record and field numbers being asked for are not out of range
+The header contains a pointer to block data that in tern contains a readable pointer to the disk data and a pointer to the next block of the file, if there is one.
+There is no separator char as one is not necessary.
+The records might span across multiple blocks
+The file starts at the beginning of the provided block
+
+Header info:
+a pointer to a linked list that has info about each of the blocks that this file is split over
+the length of records it contains.
+a list of the field offset and lengths.
+Block size.
+Blocking info.
+
+
+c.
+struct BlockInfo{
+    char * blockData;
+    BlockInfo * nextBlock;
+}
+struct FileHeader{
+    BlockInfo * startingBlock;
+    int inBlockOffset;
+    int blockSize;
+    char fieldSeparator;
+    char recordSeparator;
+}
+
+int readField(FileHeader * file, int recordNo, int fieldNo, char * dataOut){
+
+    BlockInfo * block = file -> startingBlock;
+    int offset = file -> inBlockOffset;
+    //find the start of the record we want to get
+    while(recordNo > 0){
+        //if we found the end of this segment
+        if(block -> blockData[offset] == file -> recordSeparator){
+            recordNo--;//decrease the number we still need to pass
+        }
+
+        offset++; //increase the offset
+        //if we reached the end of this block
+        if(offset >= file -> blockSize){
+            //move to the next one
+            block = block -> nextBlock;
+            offset = 0;
+        }
+    }
+
+    //find the start of the field we want
+    while(fieldNo > 0){
+        //if we found the end of this segment
+        if(block -> blockData[offset] == file -> fieldSeparator){
+            fieldNo--;//decrease the number we still need to pass
+        }
+        offset++;//increase the offset
+        //if we reached the end of this block
+        if(offset >= file -> blockSize){
+            //move to the next one
+            block = block -> nextBlock;
+            offset = 0;
+        }
+    }
+
+    int bytesRead =0;
+    while(true){
+        char read = block -> blockData[offset];
+        if(read == file -> recordSeparator || read == file -> fieldSeparator){
+            return bytesRead;
+        }
+        dataOut[bytesRead] = read;
+        offset++;//increase the offset
+        bytesRead++;
+        //if we reached the end of this block
+        if(offset >= file -> blockSize){
+            //move to the next one
+            block = block -> nextBlock;
+            offset = 0;
+        }
+    }
+}
+
+Assumptions:
+The passed in file header is valid
+The passed in pointer for the output data is provisioned to be at leased the correct size.
+The record and field numbers being asked for are not out of range
+The header contains a pointer to block data that in tern contains a readable pointer to the disk data, and a pointer to the next block of the file, if there is one.
+Each record and each field have specific separator chars that will not naturally appear in the general data
+The records might span across multiple blocks
+
+Header info:
+a pointer to a linked list that has info about each of the blocks that this file is split over
+the char that is used to separate fields
+the char that is used to separate records;
+on offset for how far into the given block the file starts
+Block size.
+Blocking info.
