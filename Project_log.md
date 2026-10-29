@@ -59,3 +59,6 @@ Start to nail down the component that are to be used in this project:
 ## Week 8 (10/18/2026 - 10/24/2026)
 Create proposal  
 Make the basic webserver that connects to the database
+
+## Week 9 (10/24/2026 - 10/31/2026)
+Start to develop front end drawing infrastructure
