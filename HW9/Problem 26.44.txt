@@ -1,0 +1,139 @@
+Stephen Duffy
+CS541
+HW9_Deductive_Databases
+
+Problem 26.44
+Consider the following rules:
+REACHABLE(X, Y) :– FLIGHT(X, Y).
+REACHABLE(X, Y) :– FLIGHT(X, Z), REACHABLE(Z, Y).
+where REACHABLE(X, Y) means that city Y can be reached from city X, and
+FLIGHT(X, Y) means that there is a flight to city Y from city X.
+
+a. Construct fact predicates that describe the following:
+    i. Los Angeles, New York, Chicago, Atlanta, Frankfurt, Paris, Singapore, Sydney are cities.
+    CITY('Los Angeles').
+    CITY('New York').
+    CITY('Chicago').
+    CITY('Atlanta').
+    CITY('Frankfurt').
+    CITY('Paris').
+    CITY('Singapore').
+    CITY('Sydney').
+
+    ii. The following flights exist: LA to NY, NY to Atlanta, Atlanta to Frankfurt, Frankfurt to Atlanta, Frankfurt to Singapore, and Singapore to Sydney. (Note: No flight in reverse direction can be automatically assumed.)
+    FLIGHT('Los Angeles', 'New York').
+    FLIGHT('New York', 'Atlanta').
+    FLIGHT('Atlanta', 'Frankfurt').
+    FLIGHT('Frankfurt', 'Atlanta').
+    FLIGHT('Frankfurt', 'Singapore').
+    FLIGHT('Singapore', 'Sydney').
+
+
+b. Is the given data cyclic? If so, in what sense?          cyclic means that you can use a series of relationships to start at a single point and eventually reach that point again
+Yes, the given data is cyclical. Atlanta and Frankfurt each have a flight that goes to the other. In this way, it is possible to go in a loop between Atlanta and Frankfurt forever.
+
+c. Construct a model-theoretic interpretation (that is, an interpretation similar to the one shown in Figure 26.13) of the above facts and rules.
+    RULES:
+    REACHABLE(X, Y) :– FLIGHT(X, Y).
+    REACHABLE(X, Y) :– FLIGHT(X, Z), REACHABLE(Z, Y).
+
+    Known Facts:
+    FLIGHT('Los Angeles', 'New York') is true.
+    FLIGHT('New York', 'Atlanta') is true.
+    FLIGHT('Atlanta', 'Frankfurt') is true.
+    FLIGHT('Frankfurt', 'Atlanta') is true.
+    FLIGHT('Frankfurt', 'Singapore') is true.
+    FLIGHT('Singapore', 'Sydney') is true.
+    FLIGHT(X, Y) is false for all other possible (X, Y) combinations.
+
+    Derived Facts:
+    REACHABLE('Los Angeles', 'New York') is true.
+    REACHABLE('Los Angeles', 'Atlanta') is true.
+    REACHABLE('Los Angeles', 'Frankfurt') is true.
+    REACHABLE('Los Angeles', 'Singapore') is true.
+    REACHABLE('Los Angeles', "Sydney") is true.
+    REACHABLE('New York', 'Atlanta') is true.
+    REACHABLE('New York', 'Frankfurt') is true.
+    REACHABLE('New York', 'Singapore') is true.
+    REACHABLE('New York', "Sydney") is true.
+    REACHABLE('Atlanta', 'Frankfurt') is true.
+    REACHABLE('Atlanta', 'Atlanta') is true.
+    REACHABLE('Atlanta', 'Singapore') is true.
+    REACHABLE('Atlanta', "Sydney") is true.
+    REACHABLE('Frankfurt', 'Atlanta') is true.
+    REACHABLE('Frankfurt', 'Singapore') is true.
+    REACHABLE('Frankfurt', "Sydney") is true.
+    REACHABLE('Singapore', 'Sydney') is true.
+    REACHABLE(X, Y) is false for all other possible (X, Y) combinations.
+
+
+d. Consider the query
+REACHABLE(Atlanta, Sydney)?
+How will this query be executed? List the series of steps it will go through.
+    1. check rule 1: is there a flight from Atlanta to Sydney: no
+    2. check rule 2: does Atlanta have any flights? yes: Frankfurt
+    3. check rule 1: is there a flight from Frankfurt to Sydney: no
+    4. check rule 2: foes Frankfurt have any flights? yes: Atlanta, Singapore
+    5. check if Atlanta has been visited yet: yes
+    6. check if Singapore has been visited yet: no
+    7. check rule 1: is there a flight from Singapore to Sydney: yes
+    Sydney is reachable from Atlanta
+
+
+e. Consider the following rule-defined predicates:
+    ROUND-TRIP-REACHABLE(X, Y) :– REACHABLE(X, Y), REACHABLE(Y, X).
+    DURATION(X, Y, Z) :- FLIGHT(X, Y).     I assume that this is what the predicate for this is supported to be, the book only contains the first part of this, so I had to improvise the condition
+Draw a predicate dependency graph for the above predicates. (Note: DURATION(X, Y, Z) means that you can take a flight from X to Y in Z hours.)
+                                  ┌──────┐
+                                  V      │
+    ROUND-TRIP-REACHABLE ───> REACHABLE ─┴─> FLIGHT
+
+    DURATION ───> FLIGHT
+
+
+f. Consider the following query: What cities are reachable in 12 hours from
+Atlanta? Show how to express it in Datalog. Assume built-in predicates
+like greater-than(X, Y). Can this be converted into a relational algebra
+statement in a straightforward way? Why or why not?
+
+    % here H is being used as an output parameter
+    REACH-WITHIN(X, Y, H) :- DURATION(X, Y, H).
+    REACH-WITHIN(X, Y, H) :- DURATION(X, Z, H1), REACH-WITHIN(Z, Y, H2), H = H1 + H2.
+    REACH-WITHIN('Atlanta', Y, T), T <= 12?
+
+    No, because relational algebra does not support recursion. A separate query would have to be created for each depth that you would want to check.
+
+
+g. Consider the predicate population(X, Y), where Y is the population of city X.
+Consider the following query: List all possible bindings of the predicate pair (X, Y), where Y is a city that can be reached in two flights from city X, which has over 1 million people.
+Show this query in Datalog. Draw a corresponding query tree in relational algebraic terms.
+
+POPULATION('Los Angeles', 3869089).
+POPULATION('New York', 8584629).
+POPULATION('Chicago', 2731585).
+POPULATION('Atlanta', 549615).
+POPULATION('Frankfurt', 760656).
+POPULATION('Paris', 2047602).
+POPULATION('Singapore', 5921853).
+POPULATION('Sydney', 5638830).
+
+FLIGHT(X, Z), FLIGHT(Z, Y), POPULATION(X, P), P > 1000000?
+{X: "Los Angeles", P: 3869089, Y: "Atlanta", Z: "New York"}
+{X: "New York", P: 8584629, Y: "Frankfurt", Z: "Atlanta"}
+
+F1 = FLIGHT
+F2 = FLIGHT
+π F1.source, F2.destination (σ POPULATION.population > 1000000 ((F1 ⋈ F1.destination = F2.source F2) ⋈ F1.source = POPULATION.city POPULATION))
+
+                π F1.source, F2.destination
+                           |
+                  σ population > 1000000
+                           |
+              ⋈ F1.source = POPULATION.city
+                /                   \
+                ⋈                POPULATION
+                |
+  F1.destination = F2.source
+    /                   \
+   F1                   F2
+
