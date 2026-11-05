@@ -62,3 +62,6 @@ Make the basic webserver that connects to the database
 
 ## Week 9 (10/24/2026 - 10/31/2026)
 Start to develop front end drawing infrastructure
+
+# Week 10 (11/1/2026 - 11/7/2026)
+serialize and de serialized user drawn shapes
