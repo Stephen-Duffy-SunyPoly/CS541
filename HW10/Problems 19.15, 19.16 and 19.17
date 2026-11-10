@@ -1,0 +1,19 @@
+Stephen Duffy
+CS541
+HW10_Query_Processing
+
+
+19.15. Develop cost functions for the PROJECT, UNION, INTERSECTION, SET DIFFERENCE, and CARTESIAN PRODUCT algorithms discussed in Section 19.4.
+PROJECT: C = b + 2b * ceil(log m (b)) + bout
+UNION:  C = 2br * ceil(log mr (br)) + 2bs * ceil(log ms (bs)) + br + bs + bout
+INTERSECTION: C = 2br * ceil(log mr (br)) + 2bs * ceil(log ms (bs)) + br + bs + bout
+SET DIFFERENCE: C = 2br * ceil(log mr (br)) + 2bs * ceil(log ms (bs)) + br + bs + bout
+CARTESIAN PRODUCT: C = br * bs + br + bout
+
+
+19.16. Develop cost functions for an algorithm that consists of two SELECTs, a JOIN, and a final PROJECT, in terms of the cost functions for the individual operations
+C = bs + br + br + (br*bs) + ((js*|R| * |S|) / bfrRS) + b + 2b * ceil(log m (b))
+
+19.17. Can a nondense index be used in the implementation of an aggregate operator? Why or why not?
+Yes, but only if the number of values associated with the index is stored in the index. This is because a non dense index may represent multiple indices.
+For the use of an index to be at all more efficient than just linearly scanning through the data, it must be known where the territory of each index starts and ends.
