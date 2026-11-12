@@ -65,3 +65,8 @@ Start to develop front end drawing infrastructure
 
 # Week 10 (11/1/2026 - 11/7/2026)
 serialize and de serialized user drawn shapes
+
+# Week 11 (11/8/2026 - 11/14/2026)
+store the content of a whiteboard in a mongo database.  
+Allow the stored content to be retrieved by web clients
+The stored content can be updated by clients and other will see near real time changes
