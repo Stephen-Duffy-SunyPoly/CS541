@@ -70,3 +70,6 @@ serialize and de serialized user drawn shapes
 store the content of a whiteboard in a mongo database.  
 Allow the stored content to be retrieved by web clients
 The stored content can be updated by clients and other will see near real time changes
+
+# Week 12 (11/15/2026 - 11/21/2026)
+A variety of different shapes can noe be drawn onto the canvas, this will also save them in the database
